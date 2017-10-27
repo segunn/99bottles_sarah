@@ -12,7 +12,7 @@ class Bottles
 
   def verse(i)
     "#{how_many_bottles(i, capitalise: true, locate: true)}, #{how_many_bottles(i)}.\n" +
-    "#{remove_a_bottle(i)}\n"
+      "#{remove_a_bottle(i)}\n"
   end
 
   private
@@ -59,7 +59,7 @@ class Bottles
     if i == 0
       "Go to the store and buy some more, #{how_many_bottles(99, locate: true)}."
     else
-      "Take #{removable_bottles_description(i)} down and pass it around, #{how_many_bottles(i-1,locate: true)}."
+      "Take #{removable_bottles_description(i)} down and pass it around, #{how_many_bottles(i-1, locate: true)}."
     end
   end
 

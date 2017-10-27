@@ -5,42 +5,65 @@ class Bottles
   end
 
   def verses(index_start, index_end)
-    (index_end..index_start).to_a.reverse.map{|i|
+    verse_numbers_array(index_start, index_end).map{ |i|
       verse(i)
     }.join("\n")
   end
 
   def verse(i)
-    "#{plural_bottles(i, capitalise: true)} of beer on the wall, #{plural_bottles(i)} of beer.\n" +
+    "#{how_many_bottles(i, capitalise: true, locate: true)}, #{how_many_bottles(i)}.\n" +
     "#{remove_a_bottle(i)}\n"
   end
 
   private
 
-  def plural_bottles(i, capitalise: false)
-    case i
-    when 1
-      "1 bottle"
-    when 0
-      if capitalise
-        "No more bottles"
-      else
-        "no more bottles"
-      end
+  def verse_numbers_array(index_start, index_end)
+    (index_end..index_start).to_a.reverse
+  end
+
+  def how_many_bottles(i, capitalise: false, locate: false)
+    "#{count_or_no_more(i, capitalise)} #{pluralise_bottles(i)} of beer#{beer_location(locate)}"
+  end
+
+  def count_or_no_more(i, capitalise)
+    if i == 0
+      no_more(capitalise)
     else
-      "#{i} bottles"
+      i
+    end
+  end
+
+  def no_more(capitalise)
+    if capitalise
+      "No more"
+    else
+      "no more"
+    end
+  end
+
+  def pluralise_bottles(i)
+    if i == 1
+      "bottle"
+    else
+      "bottles"
+    end
+  end
+
+  def beer_location(locate)
+    if locate
+      " on the wall"
     end
   end
 
   def remove_a_bottle(i)
     if i == 0
-      "Go to the store and buy some more, 99 bottles of beer on the wall."
+      "Go to the store and buy some more, #{how_many_bottles(99, locate: true)}."
     else
-      "Take #{removable_bottles(i)} down and pass it around, #{plural_bottles(i-1)} of beer on the wall."
+      "Take #{removable_bottles_description(i)} down and pass it around, #{how_many_bottles(i-1,locate: true)}."
     end
   end
 
-  def removable_bottles(i)
+  def removable_bottles_description(i)
     if i > 1
       'one'
     else

@@ -1,5 +1,15 @@
 class Bottles
 
+  def song
+    verses(99,0)
+  end
+
+  def verses(index_start, index_end)
+    (index_end..index_start).to_a.reverse.map{|i|
+      verse(i)
+    }.join("\n")
+  end
+
   def verse(i)
     "#{plural_bottles(i, capitalise: true)} of beer on the wall, #{plural_bottles(i)} of beer.\n" +
     "#{remove_a_bottle(i)}\n"
